@@ -1,2 +1,3 @@
 # entwurf-27
-Entwurf
+
+Unverbindlicher Entwurf von Leon Oßendorf für die Karl-Heinz Menzel GmbH, Wettringen. Kein offizieller Auftritt. noindex.
