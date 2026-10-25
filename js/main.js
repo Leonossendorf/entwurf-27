@@ -88,8 +88,14 @@
       e.preventDefault();
       var tel = $('input[type=tel]', f), mail = $('input[type=email]', f), fehler = $('.fehler', f);
       var ok = (tel && tel.value.replace(/\D/g, '').length >= 6) || (mail && /.+@.+\..+/.test(mail.value));
+      var name = $('input[name=name]', f);
+      if (f.hasAttribute('data-name-pflicht') && name && name.value.trim().length < 2) {
+        fehler.textContent = 'Bitte trag Deinen Namen ein.';
+        name.focus();
+        return;
+      }
       if (!ok) {
-        fehler.textContent = 'Bitte eine Telefonnummer oder eine E-Mail-Adresse angeben, damit wir antworten können.';
+        fehler.textContent = f.hasAttribute('data-name-pflicht') ? 'Bitte gib Deine Handynummer oder E-Mail an, damit wir Dich erreichen.' : 'Bitte eine Telefonnummer oder eine E-Mail-Adresse angeben, damit wir antworten können.';
         (tel || mail).focus();
         return;
       }
