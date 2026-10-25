@@ -1,376 +1,451 @@
 /* Menzel – unverbindlicher Entwurf von Leon Oßendorf */
-@font-face{font-family:"Barlow";src:url(../fonts/barlow-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Barlow";src:url(../fonts/barlow-500.woff2) format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"Barlow";src:url(../fonts/barlow-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Barlow Condensed";src:url(../fonts/barlow-condensed-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Barlow Condensed";src:url(../fonts/barlow-condensed-700.woff2) format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"Barlow Condensed";src:url(../fonts/barlow-condensed-800.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Archivo";src:url(../fonts/archivo-latin-wdth-normal.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
 
 :root{
-  --blau:#1d4374; --blau-d:#112a4a; --blau-h:#e8eef6;
-  --rot:#bd282a; --rot-d:#9c1f21; --rot-h:#fbeaea;
-  --text:#18212d; --grau:#566273; --linie:#d9dee5; --papier:#f4f5f2; --weiss:#fff;
-  --stahl1:#f3f5f7; --stahl2:#c4ccd5; --stahl3:#8b96a3;
-  --r:6px; --max:1200px;
-  --schatten:0 1px 2px rgba(16,32,56,.08),0 8px 24px rgba(16,32,56,.08);
+  /* Menzel-CI (menzelgmbh.de) */
+  --blau:#1e4b82; --blau-d:#143661; --blau-dd:#0c2342; --blau-h:#e9f0f8;
+  --rot:#cb132e; --rot-hell:#d90034; --rot-d:#a30f25; --rot-h:#fdecef;
+  --text:#3c3c3c; --grau:#6b7480; --linie:#d1d1d1; --papier:#f5f5f5; --weiss:#fff;
+  --r:5px; --rf:10px; --max:1220px;
+  --schatten:rgba(149,157,165,.2) 0 8px 24px;
+  --cond:"Archivo",sans-serif;
+  --pfeil:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23cb132e' d='M12 19a1 1 0 0 1-.7-1.7l5.3-5.3-5.3-5.3A1 1 0 0 1 12.7 5.3l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-.7.3zm-6 0a1 1 0 0 1-.7-1.7l5.3-5.3-5.3-5.3a1 1 0 0 1 1.4-1.4l6 6a1 1 0 0 1 0 1.4l-6 6A1 1 0 0 1 6 19z'/%3E%3C/svg%3E");
+  --pfeil-w:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M12 19a1 1 0 0 1-.7-1.7l5.3-5.3-5.3-5.3A1 1 0 0 1 12.7 5.3l6 6a1 1 0 0 1 0 1.4l-6 6a1 1 0 0 1-.7.3zm-6 0a1 1 0 0 1-.7-1.7l5.3-5.3-5.3-5.3a1 1 0 0 1 1.4-1.4l6 6a1 1 0 0 1 0 1.4l-6 6A1 1 0 0 1 6 19z'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;font:400 17px/1.6 "Barlow",system-ui,sans-serif;color:var(--text);background:var(--weiss)}
+body{margin:0;font:400 17px/1.62 "Archivo",system-ui,sans-serif;font-stretch:100%;color:var(--text);background:var(--weiss)}
 img{max-width:100%;height:auto;display:block}
 a{color:var(--blau)}
-h1,h2,h3,h4{font-family:"Barlow Condensed","Barlow",sans-serif;line-height:1.05;margin:0 0 .5em;color:var(--blau-d)}
-h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
-h2{font-size:clamp(2rem,4.2vw,3rem);font-weight:800;text-transform:uppercase}
-h3{font-size:1.45rem;font-weight:700}
 p{margin:0 0 1em}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
-.kicker{font:600 .85rem/1.2 "Barlow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--rot);margin:0 0 .8rem;display:flex;align-items:center;gap:.6rem}
-.kicker::before{content:"";width:28px;height:3px;background:linear-gradient(90deg,var(--rot) 50%,var(--blau) 50%)}
-.lead{font-size:1.15rem;color:var(--grau);max-width:44em}
-.sek{padding:84px 0}
-.sek.grau{background:var(--papier)}
-.sek.dunkel{background:var(--blau-d);color:#e6edf6}
-.sek.dunkel h2,.sek.dunkel h3{color:#fff}
-.sek.dunkel .lead{color:#b9c7d8}
-.sek.dunkel .kicker{color:#ff8d8e}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :focus-visible{outline:3px solid #f2a900;outline-offset:2px}
 
-/* Entwurfshinweis + Jobleiste */
-.entwurf-band{background:#fff7d6;color:#5a4800;font-size:.85rem;text-align:center;padding:6px 12px;border-bottom:1px solid #eedc8f}
-.jobleiste{display:block;background:var(--rot);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem}
-.jobleiste .wrap{display:flex;gap:.8rem;align-items:center;justify-content:center;padding:9px 20px;text-align:center}
-.jobleiste b{font-family:"Barlow Condensed";font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase}
-.jobleiste span.pfeil{transition:transform .25s}
-.jobleiste:hover span.pfeil{transform:translateX(4px)}
-.jobleiste .kurz{display:none}
+/* Typo nach Menzel-CI: Versalien, extra schmal, roter Schlusspunkt */
+h1,h2,h3,h4{overflow-wrap:break-word;hyphens:manual;font-family:var(--cond);font-stretch:62%;font-weight:800;line-height:.98;margin:0 0 .45em;color:var(--text);letter-spacing:.01em}
+h1{font-size:clamp(2.9rem,7vw,5.4rem);text-transform:uppercase}
+h2{font-size:clamp(2.4rem,5vw,4rem);text-transform:uppercase}
+h3{font-size:1.65rem;text-transform:uppercase;letter-spacing:.02em}
+.pkt{color:var(--rot)}
+.topline{font-family:var(--cond);font-stretch:62%;font-weight:700;font-size:1.25rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin:0 0 .55rem}
+.topline::before{content:"// ";color:var(--rot)}
+.lead{font-size:1.14rem;color:#555;max-width:42em}
+.sek{padding:96px 0;position:relative;scroll-margin-top:90px}
+[id]{scroll-margin-top:100px}
+.sek.grau{background:var(--papier)}
+.sek.blau{background:var(--blau);color:#e3ebf5}
+.sek.blau h2,.sek.blau h3,.sek.blau .topline{color:#fff}
+.sek.blau .lead{color:#cbd8e8}
+.sek.blau .pkt{color:#ff5a72}
+.klein{font-size:.86rem;color:var(--grau)}
+.quelle{font-size:.8rem;color:var(--grau)}
+.sek.blau .quelle,.sek.blau .klein{color:#a9bdd6}
 
-/* Kopf */
-.kopf{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.4) blur(6px);border-bottom:1px solid var(--linie)}
-.kopf .wrap{display:flex;align-items:center;gap:22px;min-height:76px}
-.logo img{width:210px;height:auto}
-.nav{display:flex;gap:4px;margin-left:auto}
-.nav a{font:600 1rem/1 "Barlow Condensed";letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:var(--blau-d);padding:12px 10px;border-radius:4px}
-.nav a:hover,.nav a[aria-current=page]{color:var(--rot)}
-.btn-not{display:inline-flex;flex-direction:column;align-items:flex-start;background:var(--rot);color:#fff;text-decoration:none;padding:8px 14px;border-radius:var(--r);line-height:1.1}
-.btn-not small{font:600 .72rem/1 "Barlow";letter-spacing:.12em;text-transform:uppercase;opacity:.9}
-.btn-not strong{font:700 1.15rem/1.1 "Barlow Condensed";letter-spacing:.02em}
-.btn-not:hover{background:var(--rot-d)}
-.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--linie);border-radius:var(--r);width:48px;height:48px;align-items:center;justify-content:center;cursor:pointer}
-.menu-btn span{display:block;width:22px;height:2px;background:var(--blau-d);position:relative}
-.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--blau-d)}
-.menu-btn span::before{top:-7px}.menu-btn span::after{top:7px}
+/* Punkteraster (Menzel-Motiv) */
+.punkte{position:absolute;width:110px;height:110px;background:radial-gradient(circle,var(--blau) 2.2px,transparent 2.6px) 0 0/18px 18px;opacity:.85;pointer-events:none}
+.punkte.weiss{background-image:radial-gradient(circle,#fff 2.2px,transparent 2.6px);opacity:.7}
+
+/* Listen mit Doppelpfeil */
+.pfeile{list-style:none;padding:0;margin:0 0 1.2em}
+.pfeile li{position:relative;padding:5px 0 5px 32px}
+.pfeile li::before{content:"";position:absolute;left:0;top:9px;width:20px;height:20px;background:var(--pfeil) no-repeat center/100%}
+.pfeile.gross li{font-family:var(--cond);font-stretch:62%;font-weight:700;font-size:1.3rem;letter-spacing:.04em;text-transform:uppercase;padding:4px 0 4px 32px}
+.pfeile.gross li::before{top:8px}
 
 /* Buttons */
-.btn{display:inline-flex;align-items:center;gap:.5rem;font:700 1.08rem/1 "Barlow Condensed";letter-spacing:.05em;text-transform:uppercase;text-decoration:none;padding:15px 22px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;min-height:50px}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:1.06rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;padding:14px 24px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;min-height:50px;transition:background .3s,color .3s,border-color .3s}
+.btn::before{content:"";width:18px;height:18px;background:var(--pfeil-w) no-repeat center/100%;flex:none}
 .btn-rot{background:var(--rot);color:#fff}.btn-rot:hover{background:var(--rot-d)}
 .btn-blau{background:var(--blau);color:#fff}.btn-blau:hover{background:var(--blau-d)}
 .btn-linie{border-color:currentColor;color:var(--blau);background:transparent}
-.btn-weiss{background:#fff;color:var(--blau-d)}
+.btn-linie::before{background-image:var(--pfeil)}
+.btn-weiss{background:#fff;color:var(--blau-d)}.btn-weiss::before{background-image:var(--pfeil)}
 .btns{display:flex;flex-wrap:wrap;gap:12px}
 
+/* Kopf */
+.entwurf-band{background:#fff7d6;color:#5a4800;font-size:.82rem;text-align:center;padding:5px 12px;border-bottom:1px solid #eedc8f}
+.oben{background:var(--blau-dd);color:#c9d6e6;font-size:.86rem}
+.oben .wrap{display:flex;gap:22px;justify-content:flex-end;align-items:center;min-height:36px}
+.oben a{color:#fff;text-decoration:none}
+.kopf{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 0 15px -3px rgba(0,0,0,.25)}
+.kopf .wrap{display:flex;align-items:center;gap:22px;min-height:84px;position:relative}
+.logo img{width:230px;height:auto}
+.nav{display:flex;gap:2px;margin-left:auto;align-items:center}
+.nav a{position:relative;white-space:nowrap;font-family:var(--cond);font-stretch:75%;font-weight:600;font-size:1.02rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--text);padding:12px 9px}
+.nav a::after{content:"";position:absolute;left:9px;bottom:4px;height:3px;width:0;background:var(--rot-hell);transition:width .3s}
+.nav a:hover::after,.nav a[aria-current=page]::after{width:25px}
+.nav .zahl{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;margin-left:5px;padding:0 5px;border-radius:10px;background:var(--rot);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:0;vertical-align:2px}
+.btn-not{white-space:nowrap;flex:none;display:inline-flex;flex-direction:column;align-items:flex-start;background:var(--rot);color:#fff;text-decoration:none;padding:7px 16px;border-radius:var(--r);line-height:1.1}
+.btn-not small{font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
+.btn-not strong{font-family:var(--cond);font-stretch:75%;font-weight:800;font-size:1.18rem;letter-spacing:.02em}
+.btn-not:hover{background:var(--rot-d)}
+.menu-btn{display:none;margin-left:auto;background:none;border:0;width:48px;height:48px;align-items:center;justify-content:center;cursor:pointer}
+.menu-btn span{display:block;width:28px;height:4px;border-radius:4px;background:var(--rot);position:relative}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:28px;height:4px;border-radius:4px;background:var(--rot)}
+.menu-btn span::before{top:-9px}.menu-btn span::after{top:9px}
+
 /* Hero */
-.hero{position:relative;color:#fff;background:var(--blau-d);overflow:hidden}
+.hero{position:relative;color:#fff;background:var(--blau-dd);overflow:hidden}
 .hero-bild{position:absolute;inset:0}
 .hero-bild img{width:100%;height:100%;object-fit:cover;object-position:60% 40%}
-.hero-bild::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,26,48,.92) 0%,rgba(10,26,48,.78) 42%,rgba(10,26,48,.25) 75%,rgba(10,26,48,.1) 100%)}
-.hero .wrap{position:relative;padding-top:72px;padding-bottom:40px}
-.hero h1{color:#fff;max-width:13em}
-.hero h1 em{font-style:normal;color:#ff6e70}
-.hero .lead{color:#d5deea;max-width:36em}
-.hero-fakt{display:inline-block;margin-top:.4rem;font-size:.85rem;color:#b9c7d8}
+.hero-bild::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,25,48,.86) 0%,rgba(12,35,66,.72) 40%,rgba(12,35,66,.88) 100%)}
+.hero .wrap{position:relative;padding-top:70px;padding-bottom:56px}
+.hero h1{color:#fff;max-width:14em}
+.hero h1 .pkt{color:#ff4d68}
+.hero .topline{color:#fff}
+.hero .lead{color:#dbe5f1;max-width:38em}
 
-/* ===== Leitmotiv: Heizkreisverteiler ===== */
-.verteiler{position:relative;margin:42px 0 8px;padding:0 6px}
-.verteiler-titel{font:600 .8rem/1 "Barlow";letter-spacing:.16em;text-transform:uppercase;color:#b9c7d8;margin:0 0 14px}
-.vt{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:0;padding-top:4px}
-.vt .balken{position:absolute;left:-2%;right:-2%;height:30px;border-radius:15px;
-  background:linear-gradient(180deg,#fdfdfd 0%,#e3e7ec 18%,#b7c0ca 48%,#8f9aa7 70%,#d5dbe2 88%,#f7f8fa 100%);
-  box-shadow:0 6px 14px rgba(0,0,0,.35), inset 0 -1px 0 rgba(0,0,0,.2)}
-.vt .balken.vl{top:44px}
-.vt .balken.rl{top:142px}
-.vt .balken::before{content:attr(data-name);position:absolute;left:-58px;top:50%;transform:translateY(-50%);font:700 .8rem/1 "Barlow Condensed";letter-spacing:.1em;color:#fff;padding:5px 8px;border-radius:3px}
-.vt .balken.vl::before{background:var(--rot)}
-.vt .balken.rl::before{background:#2e6bb5}
-.abgang{position:relative;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#fff;padding-bottom:6px;outline-offset:6px}
-/* Durchflussanzeiger (Schauglas) auf dem Vorlauf */
-.glas{position:relative;z-index:2;width:26px;height:64px;margin-top:0;border-radius:13px 13px 6px 6px;
-  background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,.12) 35%,rgba(255,255,255,.35) 60%,rgba(255,255,255,.08));
-  border:2px solid #dfe5ec;box-shadow:inset 0 0 6px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.3);overflow:hidden}
-.glas::before{content:"";position:absolute;left:4px;right:4px;top:8px;bottom:8px;background:repeating-linear-gradient(180deg,transparent 0 7px,rgba(255,255,255,.55) 7px 8px)}
-.schwimmer{position:absolute;left:5px;right:5px;bottom:6px;height:9px;border-radius:2px;background:linear-gradient(#ff7275,#c3191c);box-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .9s cubic-bezier(.3,.7,.2,1)}
-/* Rohr zwischen VL und RL und nach unten */
-.stutzen{width:18px;height:80px;margin-top:-6px;background:linear-gradient(90deg,#9aa4b0,#eef1f4 40%,#b9c1cb 70%,#7d8894)}
-.ventil{position:relative;z-index:2;width:36px;height:30px;margin-top:-4px;border-radius:6px 6px 4px 4px;background:linear-gradient(90deg,#1a4f93,#3a7fd0 40%,#2160ad 70%,#163f75);box-shadow:0 2px 4px rgba(0,0,0,.35)}
-.ventil::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:14px;margin-left:-2px;border-radius:2px;background:rgba(255,255,255,.75);transition:transform .6s ease}
-.rohr{width:16px;height:46px;margin-top:-2px;background:linear-gradient(90deg,#8e99a6,#f2f4f6 42%,#b8c0ca 72%,#77828e)}
-.schild{position:relative;margin-top:-2px;background:#fff;color:var(--blau-d);border-radius:4px;padding:10px 10px 11px;min-width:84%;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:transform .35s ease,box-shadow .35s ease}
-.schild::before{content:"";position:absolute;top:-7px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;border:3px solid #c5ccd5}
-.schild b{display:block;font:700 1.16rem/1.05 "Barlow Condensed";text-transform:uppercase;letter-spacing:.02em}
-.schild small{display:block;margin-top:3px;font-size:.8rem;line-height:1.25;color:var(--grau)}
-.abgang.rot .schild b{color:var(--rot)}
-.abgang:hover .schwimmer,.abgang:focus-visible .schwimmer{transform:translateY(-34px)}
-.abgang:hover .ventil::after,.abgang:focus-visible .ventil::after{transform:rotate(90deg)}
-.abgang:hover .schild,.abgang:focus-visible .schild{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.45)}
-@media (prefers-reduced-motion:reduce){.schwimmer,.ventil::after,.schild{transition:none}}
+/* Verteiler */
+.verteiler{margin:34px 0 0}
+.verteiler-titel{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin:0 0 6px}
+.verteiler-titel span{font-family:var(--cond);font-stretch:62%;font-weight:700;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.verteiler-titel em{font-style:normal;color:#b9cbe0;font-size:.95rem}
+.vt-svg{width:100%;height:auto;display:block;overflow:visible}
+.vt-v{display:none}
+.vt-gravur{font:700 11px "Archivo",sans-serif;font-stretch:75%;letter-spacing:2.5px;fill:#5d6772;opacity:.75}
+.vt-titel{font:800 21px "Archivo",sans-serif;font-stretch:62%;text-transform:uppercase;fill:#3c3c3c;letter-spacing:.4px}
+.vt-sub{font:500 11.5px "Archivo",sans-serif;font-stretch:87%;fill:#6b7480}
+.vt-v .vt-titel{font-size:24px}.vt-v .vt-sub{font-size:13px}
+.vt-badge-t{font:800 15px "Archivo",sans-serif;font-stretch:75%;fill:#fff}
+.vt-abg{cursor:pointer;outline:none}
+.vt-schwimmer{transition:transform .9s cubic-bezier(.3,.7,.2,1)}
+.vt-led{transition:fill .4s}
+.vt-schild{transition:transform .35s ease}
+.vt-schild-rand{transition:fill .3s}
+.vt-fluss{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-dasharray:3 13;opacity:0;transition:opacity .4s;animation:vt-fluss 1.1s linear infinite}
+@keyframes vt-fluss{to{stroke-dashoffset:-16}}
+.vt-abg:hover .vt-schwimmer,.vt-abg:focus-visible .vt-schwimmer{transform:translateY(-30px)}
+.vt-v .vt-abg:hover .vt-schwimmer,.vt-v .vt-abg:focus-visible .vt-schwimmer{transform:translateX(-24px)}
+.vt-abg:hover .vt-led,.vt-abg:focus-visible .vt-led{fill:#2fd06a}
+.vt-abg:hover .vt-fluss,.vt-abg:focus-visible .vt-fluss{opacity:.85}
+.vt-abg:hover .vt-schild,.vt-abg:focus-visible .vt-schild{transform:translateY(-4px)}
+.vt-abg:hover .vt-schild-rand,.vt-abg:focus-visible .vt-schild-rand{fill:#cb132e}
+.vt-abg:focus-visible .vt-schild rect:first-child{stroke:#f2a900;stroke-width:3}
+@media (prefers-reduced-motion:reduce){.vt-fluss{animation:none}.vt-schwimmer,.vt-schild{transition:none}}
 
-/* Typenschild (Kennzahlen) */
-.typenschild{position:relative;background:linear-gradient(180deg,#f7f8f9,#e9ecef);border:1px solid #c7ced6;border-radius:8px;box-shadow:var(--schatten);padding:22px 28px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-.typenschild::before,.typenschild::after{content:"";position:absolute;top:10px;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#9aa3ad 70%)}
+/* Typenschild */
+.kennzahlen{position:relative;z-index:3;margin-top:-1px;background:var(--blau-dd);padding-bottom:0}
+.typenschild{position:relative;top:46px;background:linear-gradient(180deg,#fafbfc,#eceff2);border:1px solid #c9d0d8;border-radius:8px;box-shadow:var(--schatten),0 2px 0 #fff inset;padding:22px 30px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin:0}
+.typenschild::before,.typenschild::after{content:"";position:absolute;top:10px;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#9aa3ad 70%);box-shadow:0 1px 1px rgba(0,0,0,.2)}
 .typenschild::before{left:10px}.typenschild::after{right:10px}
-.typ{border-left:1px solid #cdd3da;padding-left:16px}
+.typ{border-left:1px solid #cfd5dc;padding-left:16px}
 .typ:first-child{border-left:0;padding-left:0}
-.typ dt{font:600 .74rem/1.2 "Barlow";letter-spacing:.12em;text-transform:uppercase;color:var(--grau)}
-.typ dd{margin:4px 0 0;font:800 2.3rem/1 "Barlow Condensed";color:var(--blau-d)}
-.typ dd small{font:500 .9rem/1.2 "Barlow";color:var(--grau);display:block;margin-top:4px}
-.kennzahlen{margin-top:-46px;position:relative;z-index:3}
+.typ dt{font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--grau)}
+.typ dd{margin:4px 0 0;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:2.7rem;line-height:1;color:var(--blau)}
+.typ dd small{font-family:"Archivo";font-stretch:100%;font-weight:500;font-size:.88rem;color:var(--grau);display:block;margin-top:4px}
+.nach-typ{padding-top:140px}
 
-/* Karten / Raster */
-.raster{display:grid;gap:22px}
-.r2{grid-template-columns:repeat(2,1fr)}.r3{grid-template-columns:repeat(3,1fr)}.r4{grid-template-columns:repeat(4,1fr)}
-.karte{background:#fff;border:1px solid var(--linie);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .3s ease,box-shadow .3s ease}
-a.karte:hover{transform:translateY(-3px);box-shadow:var(--schatten)}
-.karte img{aspect-ratio:16/10;object-fit:cover;width:100%}
-.karte .inhalt{padding:20px 22px 22px;display:flex;flex-direction:column;gap:.4rem;flex:1}
-.karte h3{margin:0}
-.karte p{margin:0;color:var(--grau)}
-.karte .mehr{margin-top:auto;padding-top:.6rem;font:700 1rem/1 "Barlow Condensed";letter-spacing:.06em;text-transform:uppercase;color:var(--rot)}
-.tag{display:inline-block;font:600 .74rem/1 "Barlow";letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:3px;background:var(--blau-h);color:var(--blau)}
-.tag.rot{background:var(--rot-h);color:var(--rot)}
+/* Karriere-Block (Startseite) */
+.karriere-block{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.jobpillen{display:grid;gap:12px;margin:22px 0 26px}
+.jobpille{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border-radius:10px;padding:14px 18px 14px 20px;text-decoration:none;box-shadow:var(--schatten);border:1px solid #e3e6ea;transition:transform .3s,box-shadow .3s}
+.jobpille:hover{transform:translateX(4px);box-shadow:rgba(30,75,130,.22) 0 10px 26px}
+.jobpille b{display:block;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.55rem;line-height:1;text-transform:uppercase;color:var(--rot)}
+.jobpille span{display:block;font-size:.88rem;color:var(--grau);margin-top:3px}
+.jobpille .azubi{position:absolute;top:-9px;right:16px;background:var(--blau);color:#fff;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:10px}
+.jobpille i{flex:none;width:22px;height:22px;background:var(--pfeil) no-repeat center/100%}
+.jobpille.rot{background:var(--rot);border-color:var(--rot)}
+.jobpille.rot b,.jobpille.rot span{color:#fff}
+.jobpille.rot i{background-image:var(--pfeil-w)}
+.jobpille.blau{background:var(--blau);border-color:var(--blau)}
+.jobpille.blau b,.jobpille.blau span{color:#fff}
+.jobpille.blau i{background-image:var(--pfeil-w)}
+.collage{position:relative;display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:auto auto;gap:12px}
+.collage img{border-radius:10px;object-fit:cover;width:100%;height:100%;box-shadow:var(--schatten)}
+.collage .gross{grid-row:span 2;aspect-ratio:3/4}
+.collage .klein-b{aspect-ratio:1}
+.badge-rund{position:absolute;top:-28px;right:-14px;width:118px;height:118px;border-radius:50%;background:var(--rot-hell);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.35rem;line-height:1;text-transform:uppercase;text-decoration:none;box-shadow:0 10px 24px rgba(203,19,46,.4);transform:rotate(-8deg);transition:transform .4s}
+.badge-rund:hover{transform:rotate(0) scale(1.04)}
+.collage .punkte{left:-34px;bottom:-30px;z-index:-1}
 
-.zweispalt{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.zweispalt.umgekehrt>:first-child{order:2}
-.bildrahmen{position:relative;border-radius:10px;overflow:hidden;box-shadow:var(--schatten)}
-.bildrahmen img{width:100%;height:100%;object-fit:cover}
-.bildnote{position:absolute;left:12px;bottom:12px;background:rgba(17,42,74,.85);color:#fff;font-size:.78rem;padding:4px 8px;border-radius:3px}
-.liste{list-style:none;padding:0;margin:0 0 1.2em}
-.liste li{position:relative;padding:6px 0 6px 30px;border-bottom:1px solid var(--linie)}
-.liste li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:6px;border-left:3px solid var(--rot);border-bottom:3px solid var(--rot);transform:rotate(-45deg)}
-.sek.dunkel .liste li{border-color:rgba(255,255,255,.14)}
-
-/* Förder-Uhr */
-.foerderuhr{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;background:#fff;border-radius:12px;box-shadow:var(--schatten);padding:30px;border:1px solid var(--linie)}
-.manometer{width:190px;height:190px;position:relative}
+/* Förder-Uhr + Rechner */
+.wp-block{display:grid;grid-template-columns:1fr;gap:26px}
+.foerderuhr{background:#fff;border-radius:12px;box-shadow:var(--schatten);padding:28px;border:1px solid #e3e6ea}
+.foerderuhr{display:grid;grid-template-columns:auto 1fr 1.1fr;gap:28px;align-items:center}
+.foerderuhr .kopfzeile{display:contents}
+.foerderuhr .text p:last-child{margin:0}
+.manometer{width:150px;height:150px;flex:none}
 .manometer svg{width:100%;height:100%}
-.uhr-zahl{font:800 3.4rem/1 "Barlow Condensed";color:var(--rot)}
-.uhr-text{font-weight:600;color:var(--blau-d)}
-.stufen{display:flex;gap:6px;margin:14px 0 6px;flex-wrap:wrap}
-.stufe{flex:1;min-width:92px;border-radius:5px;padding:8px 10px;background:var(--papier);border:1px solid var(--linie);font-size:.85rem;line-height:1.25}
-.stufe b{display:block;font:800 1.5rem/1 "Barlow Condensed";color:var(--blau-d)}
+.uhr-gross{font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:2.4rem;line-height:1;text-transform:uppercase;color:var(--text)}
+.stufen{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:18px 0 8px}
+.stufe{border-radius:6px;padding:8px 8px;background:var(--papier);border:1px solid #e1e4e8;font-size:.78rem;line-height:1.25}
+.stufe b{display:block;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.5rem;color:var(--text)}
 .stufe.jetzt{background:var(--rot);border-color:var(--rot);color:#fff}
 .stufe.jetzt b{color:#fff}
-.quelle{font-size:.8rem;color:var(--grau)}
-.sek.dunkel .quelle{color:#9fb0c4}
+.rechner{display:grid;grid-template-columns:1.1fr .9fr;border-radius:12px;overflow:hidden;box-shadow:var(--schatten);border:1px solid #e3e6ea;background:#fff}
+.rechner .fragen{padding:26px}
+.rechner .ergebnis{background:var(--blau);color:#fff;padding:26px;display:flex;flex-direction:column;gap:10px}
+.ergebnis .gross{font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:4.2rem;line-height:1;color:#fff}
+.ergebnis .gross small{font-size:1.5rem;color:#cbd8e8;margin-left:4px}
+.ergebnis .zeile{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.18);padding:6px 0;font-size:.93rem}
+.ergebnis .warn{background:rgba(255,255,255,.1);border-left:3px solid #ff5a72;padding:10px 12px;border-radius:4px;font-size:.9rem;margin:0}
+.ergebnis .quelle{color:#b8c9de;margin:0}
 
-/* Rechner */
-.rechner{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border-radius:12px;overflow:hidden;box-shadow:var(--schatten);border:1px solid var(--linie);background:#fff}
-.rechner .fragen{padding:28px}
-.rechner .ergebnis{background:var(--blau-d);color:#fff;padding:28px;display:flex;flex-direction:column;gap:12px}
-.ergebnis .gross{font:800 3.6rem/1 "Barlow Condensed";color:#fff}
-.ergebnis .gross small{font-size:1.3rem;color:#b9c7d8;margin-left:6px}
-.ergebnis .zeile{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.14);padding:6px 0;font-size:.95rem}
-.ergebnis .warn{background:rgba(255,110,112,.16);border-left:3px solid #ff6e70;padding:10px 12px;border-radius:4px;font-size:.92rem}
-
-/* Formulare */
-.formular{background:#fff;border:1px solid var(--linie);border-radius:12px;box-shadow:var(--schatten);padding:28px}
-.formular h3{margin-bottom:.3em}
-.feld{margin:0 0 18px;border:0;padding:0;min-width:0}
-.feld>legend,.feld>label,.feld .lbl{display:block;font-weight:600;margin:0 0 8px;color:var(--blau-d)}
-.feld .hint{font-weight:400;color:var(--grau);font-size:.88rem}
+/* Chips */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{position:relative}
 .chip input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
-.chip span{display:inline-flex;align-items:center;min-height:44px;padding:9px 14px;border:1.5px solid #c3cbd5;border-radius:999px;font-weight:500;font-size:.98rem;background:#fff;color:var(--text);transition:background .2s,border-color .2s,color .2s}
+.chip span{display:inline-flex;align-items:center;min-height:44px;padding:9px 15px;border:1.5px solid #c9ced5;border-radius:var(--rf);font-weight:500;font-size:.96rem;background:#fff;color:var(--text);transition:background .2s,border-color .2s,color .2s}
 .chip input:checked+span{background:var(--blau);border-color:var(--blau);color:#fff}
 .chip input:focus-visible+span{outline:3px solid #f2a900;outline-offset:2px}
-.weichen .chip span{font:700 1.05rem/1 "Barlow Condensed";letter-spacing:.04em;text-transform:uppercase;padding:12px 16px;border-radius:6px}
-.weichen .chip input:checked+span{background:var(--rot);border-color:var(--rot)}
-input[type=text],input[type=tel],input[type=email],input[type=date],select,textarea{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border:1.5px solid #c3cbd5;border-radius:var(--r);background:#fff;color:var(--text);min-height:48px}
-textarea{min-height:110px;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:var(--blau);outline:none;box-shadow:0 0 0 3px rgba(29,67,116,.18)}
+
+/* Formulare */
+.feld{margin:0 0 16px;border:0;padding:0;min-width:0}
+.feld>legend,.feld>label,.feld .lbl{display:block;font-weight:600;font-size:.95rem;margin:0 0 7px;color:var(--text)}
+.hint{font-weight:400;color:var(--grau);font-size:.86rem}
+input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid var(--linie);border-radius:var(--rf);background:#fff;color:var(--text);min-height:50px;transition:border-color .2s,box-shadow .2s}
+select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23cb132e' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center/18px;padding-right:44px}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--blau);outline:none;box-shadow:0 0 0 3px rgba(30,75,130,.15)}
 .zwei{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.slider-wert{font:800 1.6rem/1 "Barlow Condensed";color:var(--blau-d)}
+.slider-wert{font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.5rem;color:var(--blau)}
 input[type=range]{width:100%;accent-color:var(--rot);height:32px}
-.rueckweg{background:var(--papier);border-radius:8px;padding:16px;margin-bottom:18px}
-.rueckweg p{margin:0 0 10px;font-size:.92rem;color:var(--grau)}
-.fehler{color:var(--rot);font-weight:600;font-size:.92rem;min-height:1.2em;margin:-6px 0 10px}
+.fehler{color:var(--rot);font-weight:600;font-size:.92rem;min-height:1.2em;margin:-4px 0 10px}
 .datei{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.95rem}
-.datei input{font-size:.92rem}
-.klein{font-size:.84rem;color:var(--grau)}
-.danke{display:none;background:#eaf6ee;border:1px solid #9dd1ad;border-radius:8px;padding:18px;color:#1f5130}
+.danke{display:none;background:#eaf6ee;border:1px solid #9dd1ad;border-radius:var(--rf);padding:20px;color:#1f5130}
 .danke.zeigen{display:block}
-details.mehr-sagen{margin:4px 0 18px;border:1px dashed #c3cbd5;border-radius:8px;padding:10px 14px}
-details.mehr-sagen summary{cursor:pointer;font-weight:600;color:var(--blau)}
-details.mehr-sagen[open] summary{margin-bottom:12px}
+.formhinweis{font-size:.84rem;color:var(--grau);margin:12px 0 0}
+
+/* Kontaktkarte: links Ansprechpartner, rechts Formular */
+.kontaktkarte{display:grid;grid-template-columns:.8fr 1.2fr;border-radius:14px;overflow:hidden;box-shadow:var(--schatten);background:#fff}
+.kontaktkarte .seite{background:var(--blau);color:#e3ebf5;padding:34px;position:relative;overflow:hidden}
+.kontaktkarte .seite h3{color:#fff;font-size:2rem}
+.kontaktkarte .seite .foto{width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,.25);margin-bottom:18px}
+.kontaktkarte .seite a{color:#fff}
+.kontaktkarte .seite .punkte{right:-30px;bottom:-30px}
+.drahtliste{list-style:none;padding:0;margin:18px 0 0}
+.drahtliste li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid rgba(255,255,255,.18)}
+.drahtliste b{display:block;color:#fff;font-size:1.06rem}
+.drahtliste small{color:#b8c9de}
+.drahtliste svg{flex:none;margin-top:3px}
+.kontaktkarte form,.kontaktkarte .danke{padding:34px;margin:0}
+.kontaktkarte .danke{margin:34px}
+.form-titel{font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:2rem;text-transform:uppercase;line-height:1;margin:0 0 6px}
+.schritt-kopf{display:flex;align-items:center;gap:10px;margin:22px 0 12px;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--blau)}
+.schritt-kopf i{font-style:normal;display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--blau);color:#fff;align-items:center;justify-content:center;font-size:.95rem}
+.schritt-kopf:first-of-type{margin-top:8px}
+.wege{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.weg{display:flex;align-items:center;gap:14px;background:#fff;border-radius:10px;padding:16px 18px;text-decoration:none;color:var(--text);box-shadow:var(--schatten);border:1px solid #e3e6ea;transition:transform .3s}
+.weg:hover{transform:translateY(-3px)}
+.weg b{display:block;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.35rem;line-height:1.05;text-transform:uppercase}
+.weg span{font-size:.86rem;color:var(--grau)}
+.weg .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--blau-h);display:flex;align-items:center;justify-content:center}
+.weg.not .ic{background:var(--rot-h)}
+
+/* Karten / Raster */
+.raster{display:grid;gap:22px}
+.raster>*,.zweispalt>*,.angebot>*,.karriere-block>*,.stelle-raster>*,.benefits>*,.rechner>*,.kontaktkarte>*,.wp-block>*{min-width:0}
+.benefit b{hyphens:auto;overflow-wrap:break-word}
+.r2{grid-template-columns:repeat(2,1fr)}.r3{grid-template-columns:repeat(3,1fr)}.r4{grid-template-columns:repeat(4,1fr)}
+.karte{background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;box-shadow:var(--schatten);transition:transform .3s ease}
+a.karte:hover{transform:translateY(-4px)}
+.karte img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.karte .inhalt{padding:20px 22px 22px;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.karte h3{margin:0}
+.karte p{margin:0;color:#5c636c}
+.karte .mehr{margin-top:auto;padding-top:.7rem;display:inline-flex;align-items:center;gap:6px;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:var(--rot)}
+.karte .mehr::before{content:"";width:16px;height:16px;background:var(--pfeil) no-repeat center/100%}
+/* Leistungskacheln blau mit Symbol */
+.kachel{position:relative;border-radius:10px;overflow:hidden;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;text-decoration:none;color:#fff;background:var(--blau)}
+.kachel img{position:absolute!important;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.kachel::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(30,75,130,.55),rgba(20,54,97,.92));transition:background .35s}
+.kachel:hover::before{background:linear-gradient(180deg,rgba(30,75,130,.35),rgba(20,54,97,.95))}
+.kachel>*{position:relative;z-index:2}
+.kachel svg{margin-bottom:auto}
+.kachel h3{color:#fff;font-size:2.1rem;margin:0 0 6px}
+.kachel h3 .pkt{color:#ff4d68}
+.kachel p{margin:0;color:#dbe5f1;font-size:.95rem}
+.tag{display:inline-block;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:10px;background:var(--blau-h);color:var(--blau)}
+.tag.rot{background:var(--rot-h);color:var(--rot)}
+
+.zweispalt{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.zweispalt.umgekehrt>:first-child{order:2}
+.bildrahmen{position:relative;border-radius:10px;box-shadow:var(--schatten)}
+.bildrahmen img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.bildrahmen .punkte{right:-36px;bottom:-36px;z-index:-1}
+.bildnote{position:absolute;left:12px;bottom:12px;background:rgba(12,35,66,.85);color:#fff;font-size:.76rem;padding:4px 8px;border-radius:4px}
 
 /* Ablauf */
-.ablauf{counter-reset:s;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
-.ablauf::before{content:"";position:absolute;left:4%;right:4%;top:27px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--rot),#b44a7a 50%,var(--blau))}
+.ablauf{counter-reset:s;display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.ablauf::before{content:"";position:absolute;left:5%;right:5%;top:29px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--rot),var(--blau))}
 .schritt{position:relative;padding:0 12px;text-align:center}
-.schritt::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:60px;height:60px;margin:0 auto 14px;border-radius:50%;background:#fff;border:4px solid var(--blau);font:800 1.6rem/1 "Barlow Condensed";color:var(--blau-d);position:relative;z-index:1}
-.schritt h3{font-size:1.2rem;margin-bottom:.3em}
-.schritt p{font-size:.95rem;color:var(--grau);margin:0}
+.schritt::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:62px;height:62px;margin:0 auto 14px;border-radius:50%;background:#fff;border:4px solid var(--blau);font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.8rem;color:var(--blau);position:relative;z-index:1}
+.schritt h3{font-size:1.35rem;margin-bottom:.3em}
+.schritt p{font-size:.95rem;color:#5c636c;margin:0}
 
 /* FAQ */
-.faq{max-width:860px}
-.faq details{border-bottom:1px solid var(--linie);padding:4px 0}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:16px 0;font:700 1.3rem/1.2 "Barlow Condensed";color:var(--blau-d)}
+.faq{max-width:880px}
+.faq details{border-bottom:1px solid var(--linie)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:18px 0;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:1.3rem;line-height:1.2;color:var(--text)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-size:1.6rem;line-height:.8;color:var(--rot);transition:transform .3s}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{color:var(--grau);margin:0 0 16px}
+.faq summary::after{content:"";flex:none;width:22px;height:22px;background:var(--pfeil) no-repeat center/100%;transform:rotate(90deg);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(-90deg)}
+.faq details p{color:#555;margin:0 0 18px}
 
 /* Chronik */
-.chronik{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-top:30px}
-.chronik::before{content:"";position:absolute;left:0;right:0;top:22px;height:4px;background:linear-gradient(90deg,var(--blau),var(--rot))}
-.jahr{position:relative;padding:0 14px 0 0}
-.jahr b{display:inline-block;position:relative;z-index:1;background:var(--weiss);font:800 1.7rem/1 "Barlow Condensed";color:var(--blau-d);padding:8px 10px 8px 0}
-.sek.grau .jahr b{background:var(--papier)}
-.jahr p{font-size:.95rem;color:var(--grau);margin:.4rem 0 0}
+.chronik{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:34px}
+.jahr{background:#fff;border-radius:10px;box-shadow:var(--schatten);padding:18px}
+.jahr b{display:block;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:2.4rem;line-height:1;color:var(--blau)}
+.jahr p{font-size:.92rem;color:#5c636c;margin:.5rem 0 0}
 
 /* Zitate */
-.zitat{margin:0;background:#fff;border-radius:10px;padding:24px;border:1px solid var(--linie);position:relative}
-.zitat p{font-size:1.08rem;margin-bottom:.6rem}
+.zitat{margin:0;background:#fff;border-radius:10px;padding:26px;box-shadow:var(--schatten);position:relative}
+.zitat::before{content:"„";position:absolute;right:18px;top:-6px;font-family:var(--cond);font-weight:800;font-size:6rem;line-height:1;color:var(--blau-h)}
+.zitat p{font-size:1.08rem;margin-bottom:.6rem;position:relative}
 .zitat .sterne{color:#e3a008;letter-spacing:2px}
 .zitat footer{font-size:.85rem;color:var(--grau)}
 
-/* Angebot der Woche */
-.angebot{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--schatten);border:1px solid var(--linie)}
-.angebot .text{padding:30px}
+/* Angebot */
+.angebot>img{object-fit:contain!important;background:#fff;padding:14px}
+.angebot{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--schatten)}
+.angebot .text{padding:32px}
 .offen{display:inline-flex;align-items:center;gap:8px;font-weight:600}
 .offen::before{content:"";width:10px;height:10px;border-radius:50%;background:#9aa3ad}
 .offen.ja::before{background:#1f9d55;box-shadow:0 0 0 4px rgba(31,157,85,.18)}
 .zeiten{width:100%;border-collapse:collapse;font-size:.98rem}
-.zeiten td{padding:7px 0;border-bottom:1px solid var(--linie)}
+.zeiten td{padding:8px 0;border-bottom:1px solid #e3e6ea}
 .zeiten td:last-child{text-align:right}
 
 /* Notdienst */
-.notkasten{background:var(--rot);color:#fff;border-radius:12px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.notkasten{background:var(--rot);color:#fff;border-radius:12px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
 .notkasten h2{color:#fff;margin:0}
-.notnummer{display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--rot);text-decoration:none;font:800 clamp(1.8rem,4vw,2.6rem)/1 "Barlow Condensed";padding:16px 22px;border-radius:8px;white-space:nowrap}
-.hilfe{counter-reset:h}
-.hilfe li{counter-increment:h;list-style:none;position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--linie)}
-.hilfe li::before{content:counter(h);position:absolute;left:0;top:10px;width:36px;height:36px;border-radius:50%;background:var(--blau);color:#fff;display:flex;align-items:center;justify-content:center;font:800 1.2rem/1 "Barlow Condensed"}
-.hilfe{padding:0;margin:0}
+.notkasten .topline{color:#fff}
+.notkasten .topline::before{color:#fff}
+.notnummer{display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--rot);text-decoration:none;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:clamp(2rem,4.4vw,3rem);line-height:1;padding:16px 24px;border-radius:8px;white-space:nowrap}
+.hilfe{counter-reset:h;padding:0;margin:0}
+.hilfe li{counter-increment:h;list-style:none;position:relative;padding:12px 0 12px 52px;border-bottom:1px solid #e3e6ea}
+.hilfe li::before{content:counter(h);position:absolute;left:0;top:10px;width:36px;height:36px;border-radius:50%;background:var(--blau);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.3rem}
 
-/* Jobs */
-.job{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid var(--linie);border-radius:8px;padding:18px 20px;position:relative}
-.job h3{font-size:1.3rem;margin:0}
-.job p{margin:0;color:var(--grau);font-size:.95rem}
-.job .wahl{margin-top:8px;align-self:flex-start;font:700 .95rem/1 "Barlow Condensed";letter-spacing:.06em;text-transform:uppercase;color:var(--rot);background:none;border:0;padding:6px 0;cursor:pointer}
+/* Stellen */
+.stelle-kopf{position:relative;color:#fff;background:var(--blau-dd);overflow:hidden}
+.stelle-kopf .wrap{position:relative;padding-top:54px;padding-bottom:54px}
+.stelle-kopf .topline{color:#fff}
+.stelle-kopf .lead{color:#dbe5f1}
+.stelle-kopf .krumen a{color:#fff}
+.stelle-kopf h1{color:#fff;font-size:clamp(2.4rem,5.6vw,4.4rem);max-width:15em}
+.stelle-raster{display:grid;grid-template-columns:1fr 440px;gap:50px;align-items:start}
+.stelle-raster .bewerben{position:sticky;top:110px}
+.stelle-box{margin-bottom:28px}
+.stelle-box h3{font-size:1.5rem;margin-bottom:.5em}
 .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.benefit{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:16px}
-.benefit b{display:block;font:700 1.2rem/1.1 "Barlow Condensed";color:#fff;text-transform:uppercase}
-.benefit span{font-size:.9rem;color:#b9c7d8}
-.teamfotos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.teamfotos img{aspect-ratio:1;object-fit:cover;border-radius:8px}
+.benefit{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:18px}
+.benefit b{display:block;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.4rem;line-height:1.05;color:#fff;text-transform:uppercase}
+.benefit span{font-size:.9rem;color:#cbd8e8}
+.bewerbkarte{background:#fff;border-radius:14px;box-shadow:rgba(30,75,130,.18) 0 14px 34px;overflow:hidden;border:1px solid #e3e6ea}
+.bewerbkarte .kopf-b{background:var(--blau);color:#fff;padding:22px 26px}
+.bewerbkarte .kopf-b small{display:block;font-family:var(--cond);font-stretch:75%;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#cbd8e8;font-size:.82rem}
+.bewerbkarte .kopf-b b{display:block;font-family:var(--cond);font-stretch:62%;font-weight:800;font-size:1.75rem;line-height:1.02;text-transform:uppercase;margin-top:4px}
+.bewerbkarte form,.bewerbkarte .danke{padding:24px 26px}
+.bewerbkarte .danke{margin:24px 26px;padding:20px}
+.weiter{list-style:none;padding:0;margin:0;counter-reset:w}
+.weiter li{counter-increment:w;position:relative;padding:6px 0 6px 40px;font-size:.95rem}
+.weiter li::before{content:counter(w);position:absolute;left:0;top:5px;width:28px;height:28px;border-radius:50%;background:var(--rot-h);color:var(--rot);font-family:var(--cond);font-stretch:62%;font-weight:800;display:flex;align-items:center;justify-content:center}
+.jobraster{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 
 /* Galerie */
 .galerie{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.galerie figure{margin:0;position:relative;border-radius:8px;overflow:hidden}
+.galerie figure{margin:0;position:relative;border-radius:10px;overflow:hidden}
 .galerie img{width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
-.galerie figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;background:linear-gradient(transparent,rgba(10,26,48,.85));color:#fff;font-size:.82rem;line-height:1.25}
+.galerie figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 9px;background:linear-gradient(transparent,rgba(12,35,66,.88));color:#fff;font-size:.82rem;line-height:1.25}
 .galerie .hoch img{aspect-ratio:3/4}
+.partner{display:flex;flex-wrap:wrap;gap:10px}
+.partner span{border:1px solid var(--linie);border-radius:var(--rf);padding:10px 16px;font-family:var(--cond);font-stretch:75%;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:#fff}
 
 /* Fuß */
-.fuss{background:#0c1f38;color:#b9c7d8;padding:56px 0 24px;font-size:.95rem}
+.fuss{background:var(--blau-dd);color:#b8c9de;padding:60px 0 26px;font-size:.95rem}
 .fuss a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:3px}
 .fuss .spalten{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px}
-.fuss h4{color:#fff;font-size:1.1rem;letter-spacing:.06em;text-transform:uppercase}
-.fuss .logoplatte{background:#fff;border-radius:6px;padding:12px;display:inline-block;margin-bottom:14px}
-.fuss .logoplatte img{width:190px}
+.fuss h4{color:#fff;font-size:1.35rem;text-transform:uppercase;letter-spacing:.04em}
+.fuss .logoplatte{background:#fff;border-radius:8px;padding:12px;display:inline-block;margin-bottom:14px}
+.fuss .logoplatte img{width:200px}
 .fuss ul{list-style:none;padding:0;margin:0}
 .fuss li{padding:3px 0}
 .fuss .unten{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:.85rem}
-.entwurf-hinweis{background:#fff7d6;color:#5a4800;border-radius:6px;padding:12px 14px;font-size:.88rem;margin-top:22px}
+.entwurf-hinweis{background:#fff7d6;color:#5a4800;border-radius:8px;padding:12px 14px;font-size:.86rem;margin-top:22px}
 
-/* Handy-Leiste */
 .handyleiste{display:none}
 
 /* Unterseiten-Kopf */
-.seitenkopf{position:relative;color:#fff;background:var(--blau-d);overflow:hidden}
-.seitenkopf .hero-bild::after{background:linear-gradient(100deg,rgba(10,26,48,.93) 0%,rgba(10,26,48,.8) 50%,rgba(10,26,48,.35) 100%)}
-.seitenkopf .wrap{position:relative;padding-top:64px;padding-bottom:64px}
+.seitenkopf{position:relative;color:#fff;background:var(--blau-dd);overflow:hidden}
+.seitenkopf .hero-bild::after{background:linear-gradient(100deg,rgba(9,25,48,.92) 0%,rgba(12,35,66,.8) 50%,rgba(12,35,66,.4) 100%)}
+.seitenkopf .wrap{position:relative;padding-top:70px;padding-bottom:70px}
 .seitenkopf h1{color:#fff;max-width:14em}
-.seitenkopf .lead{color:#d5deea}
-.krumen{font-size:.85rem;color:#b9c7d8;margin-bottom:14px}
+.seitenkopf h1 .pkt{color:#ff4d68}
+.seitenkopf .lead{color:#dbe5f1}
+.seitenkopf .topline{color:#fff}
+.krumen{font-size:.85rem;color:#b9cbe0;margin-bottom:14px}
 .krumen a{color:#fff}
 
-@media (max-width:1100px){
-  .nav a{padding:12px 7px;font-size:.92rem}
-  .logo img{width:180px}
+@media (max-width:1240px){
+  .nav a{padding:12px 6px;font-size:.95rem}
+  .kopf .wrap{gap:14px}
 }
-@media (max-width:980px){
-  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--linie);padding:8px 12px 16px;box-shadow:var(--schatten)}
+@media (max-width:1140px){
+  .logo img{width:190px}
+  .stelle-raster{grid-template-columns:1fr 400px}
+}
+@media (max-width:1000px){
+  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;padding:8px 16px 18px;box-shadow:0 12px 24px rgba(0,0,0,.12)}
   .nav.offen{display:flex}
-  .nav a{padding:14px 8px;font-size:1.1rem;border-bottom:1px solid var(--linie)}
+  .nav a{padding:15px 6px;font-size:1.15rem;border-bottom:1px solid #eee}
+  .nav a::after{display:none}
   .menu-btn{display:inline-flex}
   .kopf .btn-not{display:none}
+  .oben{display:none}
   .r3,.r4{grid-template-columns:repeat(2,1fr)}
-  .zweispalt,.rechner,.angebot{grid-template-columns:1fr;gap:28px}
-  .rechner,.angebot{gap:0}
+  .foerderuhr{grid-template-columns:auto 1fr}
+  .foerderuhr .stufen-box{grid-column:1/-1}
+  .zweispalt,.karriere-block,.wp-block,.rechner,.angebot,.kontaktkarte,.stelle-raster{grid-template-columns:1fr;gap:34px}
+  .rechner,.angebot,.kontaktkarte{gap:0}
+  .stelle-raster .bewerben{position:static}
   .zweispalt.umgekehrt>:first-child{order:0}
   .typenschild{grid-template-columns:repeat(3,1fr)}
   .typ:nth-child(4){border-left:0;padding-left:0}
   .benefits{grid-template-columns:repeat(2,1fr)}
   .fuss .spalten{grid-template-columns:1fr 1fr}
-  .chronik{grid-template-columns:repeat(3,1fr);row-gap:26px}
-  .chronik::before{display:none}
+  .chronik{grid-template-columns:repeat(3,1fr)}
   .galerie{grid-template-columns:repeat(2,1fr)}
+  .wege{grid-template-columns:1fr}
 }
 @media (max-width:720px){
-  body{font-size:16.5px;padding-bottom:68px}
-  .sek{padding:60px 0}
+  body{font-size:16.5px;padding-bottom:70px}
+  .sek{padding:64px 0}
   .wrap{padding:0 16px}
-  .kopf .wrap{min-height:64px}
-  .logo img{width:170px}
-  .hero .wrap{padding-top:40px}
-  .r2,.r3,.r4{grid-template-columns:1fr}
-  .zwei{grid-template-columns:1fr}
-  .typenschild{grid-template-columns:1fr 1fr;padding:20px}
+  .kopf .wrap{min-height:68px}
+  .logo img{width:175px}
+  .hero .wrap{padding-top:40px;padding-bottom:30px}
+  .r2,.r3,.r4,.zwei,.jobraster{grid-template-columns:1fr}
+  .typenschild{grid-template-columns:1fr 1fr;padding:20px;top:30px}
+  .nach-typ{padding-top:96px}
   .typ{border-left:0;padding-left:0}
-  .typ dd{font-size:2rem}
-  .foerderuhr{grid-template-columns:1fr;text-align:left;padding:22px}
-  .manometer{width:150px;height:150px}
+  .typ dd{font-size:2.3rem}
+  .foerderuhr{grid-template-columns:1fr;gap:14px}
+  .stufen{grid-template-columns:repeat(3,1fr)}
   .ablauf{grid-template-columns:1fr;gap:18px}
   .ablauf::before{left:29px;right:auto;top:8px;bottom:8px;width:6px;height:auto;background:linear-gradient(180deg,var(--rot),var(--blau))}
-  .schritt{display:grid;grid-template-columns:60px 1fr;gap:4px 16px;text-align:left;padding:0}
+  .schritt{display:grid;grid-template-columns:62px 1fr;gap:4px 16px;text-align:left;padding:0}
   .schritt::before{grid-row:span 2;margin:0}
-  .notkasten{grid-template-columns:1fr}
+  .notkasten{grid-template-columns:1fr;padding:24px}
   .benefits{grid-template-columns:1fr 1fr}
-  .teamfotos{grid-template-columns:repeat(2,1fr)}
   .fuss .spalten{grid-template-columns:1fr}
   .chronik{grid-template-columns:1fr 1fr}
-  .formular,.rechner .fragen,.rechner .ergebnis,.angebot .text{padding:20px}
-  .handyleiste{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--linie);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
-  .handyleiste a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:62px;text-decoration:none;font:700 .92rem/1.05 "Barlow Condensed";letter-spacing:.04em;text-transform:uppercase;color:var(--blau-d);text-align:center}
-  .handyleiste a small{font:500 .72rem/1 "Barlow";letter-spacing:0;text-transform:none;color:var(--grau)}
+  .rechner .fragen,.rechner .ergebnis,.angebot .text,.kontaktkarte form,.kontaktkarte .seite,.foerderuhr{padding:22px}
+  .bewerbkarte form{padding:20px}
+  .badge-rund{width:96px;height:96px;font-size:1.1rem;right:-4px;top:-22px}
+  .vt-h{display:none}.vt-v{display:block;max-width:420px}
+  .punkte{display:none}
+  h1,h2,h3{hyphens:auto}
+  .stelle-kopf h1{font-size:2.2rem}
+  .jobpille{padding-top:20px}
+  .jobpille b{font-size:1.35rem}
+  .pfeile.gross{columns:1!important}
+  .handyleiste{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid #e3e6ea;box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+  .handyleiste a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:64px;text-decoration:none;font-family:var(--cond);font-stretch:75%;font-weight:700;font-size:.98rem;letter-spacing:.04em;text-transform:uppercase;color:var(--text);text-align:center}
+  .handyleiste a small{font-family:"Archivo";font-stretch:100%;font-weight:500;font-size:.72rem;letter-spacing:0;text-transform:none;color:var(--grau)}
   .handyleiste a.not{background:var(--rot);color:#fff}
-  .handyleiste a.not small{color:#ffe0e0}
-  .jobleiste .wrap{font-size:.9rem;padding:8px 16px;gap:.5rem}
-  .jobleiste .lang{display:none}.jobleiste .kurz{display:inline}
-  .jobleiste b{font-size:1rem}
-
-  /* Verteiler senkrecht */
-  .vt{grid-template-columns:1fr;padding-top:0;padding-left:0}
-  .vt .balken{top:-10px!important;bottom:-10px;height:auto;width:26px;left:0;right:auto;border-radius:13px;
-    background:linear-gradient(90deg,#fdfdfd 0%,#e3e7ec 18%,#b7c0ca 48%,#8f9aa7 70%,#d5dbe2 88%,#f7f8fa 100%)}
-  .vt .balken.vl{left:6px}
-  .vt .balken.rl{left:78px}
-  .vt .balken::before{display:none}
-  .abgang{flex-direction:row;align-items:center;padding:7px 0;min-height:76px}
-  .glas{width:56px;height:24px;border-radius:12px 6px 6px 12px;margin-left:-9px}
-  .glas::before{left:8px;right:8px;top:4px;bottom:4px;background:repeating-linear-gradient(90deg,transparent 0 7px,rgba(255,255,255,.55) 7px 8px)}
-  .schwimmer{left:auto;right:6px;top:5px;bottom:5px;width:9px;height:auto}
-  .abgang:hover .schwimmer,.abgang:focus-visible .schwimmer{transform:translateX(-30px)}
-  .stutzen{width:30px;height:16px;margin:0 -6px 0 -6px;background:linear-gradient(180deg,#9aa4b0,#eef1f4 40%,#b9c1cb 70%,#7d8894)}
-  .ventil{width:30px;height:34px;margin:0;border-radius:4px 6px 6px 4px;background:linear-gradient(180deg,#1a4f93,#3a7fd0 40%,#2160ad 70%,#163f75)}
-  .ventil::after{top:50%;left:8px;width:14px;height:4px;margin:-2px 0 0}
-  .rohr{width:22px;height:14px;margin:0 -2px;background:linear-gradient(180deg,#8e99a6,#f2f4f6 42%,#b8c0ca 72%,#77828e)}
-  .schild{flex:1;min-width:0;text-align:left;padding:10px 12px;margin:0}
-  .schild::before{top:50%;left:-7px;margin:-5px 0 0}
-  .schild b{font-size:1.12rem}
-  .verteiler{margin-top:30px}
+  .handyleiste a.not small{color:#ffe0e5}
 }
-@media print{.kopf,.handyleiste,.jobleiste{display:none}}
+@media print{.kopf,.handyleiste,.oben{display:none}}
+.formular{background:#fff;border-radius:12px;box-shadow:var(--schatten);padding:26px;margin-top:18px}
+.rueckweg{background:var(--papier);border-radius:var(--rf);padding:16px}
